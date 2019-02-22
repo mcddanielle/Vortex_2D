@@ -1,25 +1,46 @@
 # Vortex_2D
-ABOUT
-/*Author Danielle McDermott, November 1, 2013
- */
 
- *
- *compile with Makefile
- *
+### Author Danielle McDermott, November 1, 2013
+ 
+compile with Makefile
 
- *BIG GOAL: to combine movie reading of MovieConverter
- *      with the geometry processing of Nanoparticle
- *
+2019: it appears I had some trouble linking certain libraries, so I cut them and created basic_src to avoid those calls.
 
- *from Jeff's source code:*-----------------------------
-   SMTEST movie FRAME formats:
-  -1: has ids, positions
- *----------------------------------
+ 
+use --help flag to view following docs:
+-------------------------------------------------
+---------------------------------------------
+This help menu is for MovieConverter
+This needs an update for analysis---------------------------------------------
+Read binary movie files to extract single frames of a movie
+Author Danielle McDermott 
+Last Update June 2015
+Usage basic_vortex_geometry
+Input/Output Files
+	-f|--name of binary movie to be read
+	-o|--name of file to be written
+---------------------------------------------
+Read Options
+	-m|--movie type = -1,1, default -1 
+	  -1: Cynthia's Original Format 
+	   0: nada  1: Ascii 
+---------------------------------------------
+Write Options
+	-w|--output type = -1,0,1
+	  -1: Delplot Format (input to delplot or vortexsolid.c (ksttestn0))
+	   0: Version0 format (input to VortexSolidPostProcessor)
+	   1: Ascii Format
+The final frame is always written.  Other frames can be processed with the -I flag to set the Fd (current) of the output.  This will not be suitable for a movie of version -1
+---------------------------------------------
+Other options
+	-X|--xmax (required for movie type -1 (see Read Options)) 
+	-Y|--ymax (required for movie type -1 (see Read Options)) 
+	-N| number of pins 
+	-p| maximum pinning force 
+	--verbose print out debugging statements
+	--quiet don't print normal output
+-------------------------------------------------
 
- /*----------------------November 1st, 2013 GOAL-----------------------*/
- 1) Working Code!  defined by: 
- e) then the ensuing sorting, nn, g(r), q6, etc may begin
- f) linked list + malloc the bt[C] array in vortex_list
  
 //-----------------------------------------------------------------------
  *Software requires an input movie name to run and will assume a 
@@ -27,7 +48,8 @@ ABOUT
  *argument -s
  *
  *given the argument -m 1, rather that convert between smtest and a Jeff-movie, 
- *the code will simply read in a Jeff-movie and write its final frame to a file
+
+*the code will simply read in a Jeff-movie and write its final frame to a file
  *
  *TODO: Include a "write ascii" option
  *TODO: Use strtok() to parse the filenames, right now it will only
