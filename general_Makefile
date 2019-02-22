@@ -1,0 +1,51 @@
+# Use bash as the shell for evaluating expressions
+SHELL = /bin/sh
+CC    = gcc
+ 
+FLAGS        = -lm -L/usr/lib/x86_64-linux-gnu -lm
+CFLAGS       = -g -w -c
+DEBUGFLAGS   = -O0 -g
+ 
+# Name of the executable 
+TARGET  = basic_vortex_geometry
+
+SOURCES = $(shell echo basic_src/*.c)
+HEADERS =  $(shell echo basic_src/*.h)
+# Shell substitution turns source file names into object file names
+#OBJ=$(subst .c,.o,${SRC})
+OBJ = $(SOURCES:.c=.o)
+
+# Include paths that should, but don't always, appear automagically
+INCLUDEPATHS=-I/usr/include/c++/${GCCV} \
+        -I/usr/include/c++/${GCCV}/${ARCH} \
+        -I/usr/lib/gcc/${ARCH}/${GCCV}/include \
+	-I/home/mcdermott/Codes-Scripts/Vortex_2D/basic_src
+
+all: $(TARGET)
+
+$(TARGET): $(OBJ) 
+	$(CC) $(CFLAGS) $(INCLUDEPATHS) $(SOURCES)
+	$(CC) -o $(TARGET) $(OBJ) $(FLAGS)
+
+#this doesn't work at all.  no clue why
+debug: $(OBJ) 
+	$(CC) $(DEBUGFLAGS) $(INCLUDEPATHS) $(SOURCES)
+	$(CC) -o $(TARGET) $(OBJ) $(FLAGS)
+
+release: $(SOURCES) 
+	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCES)
+
+profile: CFLAGS += -pg
+profile: $(TARGET)
+ 
+ 
+ 
+clean:  
+	-rm -f $(OBJ)
+ 
+backup:
+	tar -cvzf converter_bkup.tar.gz $(SOURCES) $(TARGET) $(OBJ) $(HEADERS) Makefile
+ 
+ 
+
+

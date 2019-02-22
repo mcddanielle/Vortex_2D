@@ -1,0 +1,16 @@
+*gmon.out
+*~*
+*eps
+*o
+.*
+*#*
+backup*
+*pdf
+tests/N*
+*tar.gz
+*big*
+tests/nn.rcp
+tests/test_data.txt
+*vortex_geometry
+*data*
+eps_images*
