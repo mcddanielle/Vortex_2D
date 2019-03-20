@@ -14,7 +14,7 @@ OBJ=$(subst .c,.o,${SRC})
 # Get the current version of the compiler from
 # /usr/bin/gcc -v 2>&1 | grep -w version | cut -d ' ' -f3
 # and use that number here
-GCCV=4.8.2
+GCCV=5.4.0
 
 ARCH=x86_64-linux-gnu
 # ARCH=x86_64-redhat-linux on Fedora machines (usually)
@@ -25,7 +25,9 @@ INCLUDEPATHS=-I/usr/include/c++/${GCCV} \
 	-I/usr/lib/gcc/${ARCH}/${GCCV}/include \
 	-I/usr/include/gsl \
         -I/usr/include/${ARCH} \
-	-I/home/mcdermott/Codes-Scripts/Vortex_2D/src #find the header dammit
+	-I/usr/include/x86_64-linux-gnu/c++/5 \
+	-I/home/mcdermott/Codes-Scripts/Vortex_2D/src  #find the header dammit
+
 
 # Source files to be compiled as a library
 #LIBSRC=parameter.cpp
@@ -46,10 +48,10 @@ INCLUDEPATHS=-I/usr/include/c++/${GCCV} \
 DEBUG=0
 ifeq (${DEBUG},1)
   CPUOPT=-g3 -Wall -Wunused -pg -fno-strict-aliasing -finline-functions -DDEBUG
-  LIBS=${LIBRARIES} -pg -lm -lgsl -lgslcblas #-std=c++11 #-L/usr/lib/x86_64-linux-gnu 
+  LIBS=${LIBRARIES} -pg -lm -lgsl -lgslcblas -std=c++11 -L/usr/lib/x86_64-linux-gnu -L/usr/include/x86_64-linux-gnu/c++/5/
 else
   CPUOPT= -O3 -mhard-float -msse2 -fno-strict-aliasing
-  LIBS=${LIBRARIES}  -pg -lm -lgsl -lgslcblas #-L/usr/lib/x86_64-linux-gnu 
+  LIBS=${LIBRARIES} -pg -lm -lgsl -lgslcblas #-L/usr/lib/x86_64-linux-gnu 
 endif
 
 # compile command

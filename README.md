@@ -9,6 +9,7 @@ compile with Makefile
  
 use --help flag to view following docs:
 -------------------------------------------------
+
 ---------------------------------------------
 This help menu is for MovieConverter
 This needs an update for analysis---------------------------------------------
